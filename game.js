@@ -8,7 +8,7 @@ var config = {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
 },
-    scene: [Scene1,Scene2],
+    scene: [Scene1,Scene2,Scene3],
     audio: {
         disableWebAudio: true
     }

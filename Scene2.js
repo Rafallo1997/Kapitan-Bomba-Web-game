@@ -1,4 +1,4 @@
-var player;
+  var player;
 var hold=false;
 var score=0;
 var scoreText;
@@ -7,6 +7,7 @@ var cursors;
 var audioStart;
 var audioGame
 var finalScore;
+var restart;
 var textSpacja;
 var audio1=true;
 var audioGameOver;
@@ -33,6 +34,7 @@ class Scene2 extends Phaser.Scene {
     super("GameScene");
 
   }
+
 preload(){
   var progressBar = this.add.graphics();
 var progressBox = this.add.graphics();
@@ -80,9 +82,10 @@ loadingText.destroy();
 }
 create() {
 
+
     this.add.image(650,600,'ui');
     scoreText=this.add.text(220,600,score,textConfig);
-textSpacja=this.add.text(width/2-160,40,"RŻŃIJ W SPACJE!!!",textConfig);
+textSpacja=this.add.text(width/2-160,40,"RYP W SPACJE!!!",textConfig);
     cursors = this.input.keyboard.createCursorKeys();
     this.scale.displaySize.setAspectRatio( width/height );
       this.scale.refresh();
@@ -132,11 +135,13 @@ if(granie==true){
 
 }
 
-console.log(granie);
+console.log("granie "+granie);
 if(koniec==true){
+  var box=this.add.graphics();
     //this.scene.start('GameOverScene', score);
     audioGameOver.play();
     player.destroy();
+    scoreText.destroy();
       finalScore=score;
       this.add.text(220,600,finalScore,textConfig);
       this.add.text(420,220,"GAME OVER",{
@@ -144,16 +149,58 @@ if(koniec==true){
       fontSize: 80,
       boundsAlignH: "center",
       boundsAlignV: "middle" });
-      scoreText.destroy();
-    koniec=false;
-}
+      // box.fillStyle(0x222222, 0.8);
+      // box.lineStyle(15,'#0f0' , 1);
+      // box.fillRect((width/2)-210, 380, 420, 50);
+      restart=this.add.text((width/2)-200, 400, 'BONUS - Jak wyglądał proces testowania gry', { fill: '#0f0' })
+      .setInteractive()
+
+      .on('pointerdown', () => {
+      this.scene.start('bonus');
+      audioGameOver.stop();
+
+      audio1=true;
+       gameStart=false;
+        granie=false;
+        koniec=false;
+        hold=false;
+        score=0;
+        this.scene.reset();
+
+
+});
+koniec=false;
 }
 
 
 }
+}
+
 function scoreAdd(){
 if(granie==true){
 cursors.space.on('up',function(event){console.log("dupa");score+=100;
 scoreText.setText(score);});
 }
+
+
+}
+function reset(){
+ audio1=true;
+  gameStart=false;
+   granie=false;
+   koniec=false;
+   hold=false;
+   score=0;
+   audioGame.destroy();
+   restart=this.add.text((width/2)-100, 500, 'Kliknij by zagrać ponownie!', { fill: '#0f0' })
+   .setInteractive()
+   .on('pointerdown', () => {
+     audioGame.stop();
+     this.registry.destroy();
+   this.events.off();
+
+
+ this.scene.restart();});
+   scoreText.destroy();
+ koniec=false;
 }
