@@ -12,7 +12,7 @@ class Scene1 extends Phaser.Scene {
 
  preload(){
 
-  this.load.video('video','dupa.mp4');
+  this.load.video('video','dup.mp4');
   this.load.on('progress', function (value) {
       console.log(value);
 
