@@ -1,5 +1,5 @@
 # Kapitan-Bomba-Web-game
-www.kapitandupa.com.pl
+www.kapitandupa.com.pl (nieaktualne)
 Strona internetowa z grą z uniwersum Kapitana Bomby. Gra została napisana w JS przy użyciu frameworku Phaser
 
 ![picture](obraz_2021-03-14_142732.png)
